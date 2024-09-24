@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:widgets/widgets.dart';
+import '../widgets.dart';
 
 /// A stateful widget that represents an icon button.
 class Iconbutton extends StatefulWidget {

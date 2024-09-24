@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/material.dart';
 
 ///A commonly used circle progress indicator loader
@@ -15,7 +17,7 @@ class Loader extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final Widget loader = Padding(
       padding: padding ?? const EdgeInsets.all(8),
       child: SizedBox(

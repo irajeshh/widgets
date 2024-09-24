@@ -1,12 +1,28 @@
+// ignore_for_file: public_member_api_docs
+
 import 'dart:async';
 
 // import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:widgets/widgets.dart';
+
+import '../widgets.dart';
 
 ///Customized Image widget to be shown using cache
 class Img extends StatefulWidget {
   final String? imgUrl;
+
+
+
+
+
+
+
+
+
+
+
+  
   final double? height;
   final double? width;
   final Widget? loader;
@@ -126,7 +142,7 @@ class _ImgState extends State<Img> with AutomaticKeepAliveClientMixin, ImgViewer
   Widget progressIndicatorBuilder(
     final BuildContext context,
     final String url,
-    final progress,
+    final DownloadProgress progress,
   ) {
     return widget.loader ??
         Container(

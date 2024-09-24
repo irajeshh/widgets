@@ -1,8 +1,11 @@
+// ignore_for_file: public_member_api_docs
+
 import 'dart:async';
 
 import 'package:extensions/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:widgets/widgets.dart';
+
+import '../widgets.dart';
 
 class Button extends StatefulWidget {
   final dynamic icon;
@@ -68,9 +71,7 @@ class Button extends StatefulWidget {
 
   ///Used in [tools] of the filterview in most cases
   factory Button.add(
-    final BuildContext context, {
-    required final Widget page,
-    final bool barrierDismissible = true,
+    {
     final bool autoFocus = false,
   }) {
     return Button(

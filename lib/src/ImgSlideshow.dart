@@ -1,7 +1,11 @@
+// ignore_for_file: public_member_api_docs
+
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:widgets/widgets.dart';
+
+import '../widgets.dart';
 
 class ImgSlideshow extends StatefulWidget {
   final bool autoScroll;
@@ -65,9 +69,9 @@ class _ImgSlideshowState extends State<ImgSlideshow> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
+      builder: (final BuildContext context, final BoxConstraints constraints) {
         final double width = constraints.maxWidth;
         final double height = widget.height ?? ((width / 16) * 9);
         return SizedBox(
@@ -83,7 +87,7 @@ class _ImgSlideshowState extends State<ImgSlideshow> {
     );
   }
 
-  Widget pages(double height, double width) {
+  Widget pages(final double height, final double width) {
     return SizedBox(
       height: height,
       width: width,
@@ -91,7 +95,7 @@ class _ImgSlideshowState extends State<ImgSlideshow> {
         controller: imgsPageController,
         onPageChanged: onImgsPageChanged,
         itemCount: widget.imgUrls.length,
-        itemBuilder: (BuildContext context, int index) {
+        itemBuilder: (final BuildContext context, final int index) {
           return Img(
             imgUrl: widget.imgUrls[index],
             fit: widget.fit ?? BoxFit.contain,
@@ -110,7 +114,7 @@ class _ImgSlideshowState extends State<ImgSlideshow> {
     if (widget.showNavigators == false || widget.imgUrls.length < 2) {
       return null;
     } else {
-      Widget button(bool backward) {
+      Widget button(final bool backward) {
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: RotatedBox(
@@ -126,7 +130,7 @@ class _ImgSlideshowState extends State<ImgSlideshow> {
                 color: widget.navigatorIconColor ?? Colors.black26,
                 size: MediaQuery.of(context).size.width < 600 ? null : 40,
                 onPressed: () async {
-                  _animateFn(backward ? currentImgIndex - 1 : currentImgIndex + 1);
+                  await _animateFn(backward ? currentImgIndex - 1 : currentImgIndex + 1);
                 },
               ),
             ),
@@ -149,7 +153,7 @@ class _ImgSlideshowState extends State<ImgSlideshow> {
       padding: const EdgeInsets.all(8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: widget.imgUrls.map((String e) {
+        children: widget.imgUrls.map((final String e) {
           final int index = widget.imgUrls.indexOf(e);
           final bool selected = currentImgIndex == widget.imgUrls.indexOf(e);
           final Widget img = Img(
@@ -173,7 +177,7 @@ class _ImgSlideshowState extends State<ImgSlideshow> {
     );
   }
 
-  void onImgsPageChanged(int p) {
+  void onImgsPageChanged(final int p) {
     if (mounted) {
       setState(() => currentImgIndex = p);
     }
@@ -201,7 +205,7 @@ class _ImgSlideshowState extends State<ImgSlideshow> {
           }
         }
 
-        _animateFn(nextPage);
+        await _animateFn(nextPage);
 
         if (nextPage == length - 1 || nextPage == 0) {
           reverse = !reverse;
@@ -210,7 +214,7 @@ class _ImgSlideshowState extends State<ImgSlideshow> {
     }
   }
 
-  Future<void> _animateFn(int index) async {
+  Future<void> _animateFn(final int index) async {
     if (mounted) {
       try {
         await imgsPageController.animateToPage(
@@ -219,9 +223,13 @@ class _ImgSlideshowState extends State<ImgSlideshow> {
           curve: Curves.ease,
         );
       } on Exception catch (e) {
-        print('Error auto scrolling banner :$e');
+        if (kDebugMode) {
+          print('Error auto scrolling banner :$e');
+        }
       }
-      if (mounted) setState(() => currentImgIndex = index);
+      if (mounted) {
+        setState(() => currentImgIndex = index);
+      }
     }
   }
 }

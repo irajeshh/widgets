@@ -14,13 +14,13 @@ export './src/Expasiontile.dart';
 export './src/Iconbutton.dart';
 export './src/IconsPack.dart';
 export './src/Img.dart';
+export './src/ImgProvider.dart';
 export './src/ImgSlideshow.dart';
 export './src/ImgViewerMixin.dart';
 export './src/Inkk.dart';
 export './src/Loader.dart';
 export './src/RatingBar.dart';
 export './src/Txt.dart';
-export './src/ImgProvider.dart';
 
 ///Showing a classic [Toast] to inform the [User] about
 ///the recent [actions] they [performed] or [requested]

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:widgets/widgets.dart';
+import '../widgets.dart';
 
 /// A custom expansion tile widget that allows expanding and collapsing a list of children.
 class Expansiontile extends StatelessWidget {
