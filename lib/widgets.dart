@@ -45,3 +45,13 @@ void showToast(final Object? m) {
 Future<void> wait([final int? milliseconds = 350]) async {
   await Future<void>.delayed(Duration(milliseconds: milliseconds ?? 350));
 }
+
+///To print any given input
+void printt(final Object? object) {
+  if (kDebugMode) {
+    print(object);
+  }
+}
+
+///Returns the maximum width of the current device
+double mwidth(final BuildContext context) => MediaQuery.of(context).size.width;
