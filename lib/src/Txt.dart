@@ -60,6 +60,9 @@ class Txt extends StatefulWidget {
   ///If the string can be selected by clicking on it
   final bool selectable;
 
+  ///Space between each letters of a word
+  final double? letterSpacing;
+
   /// Constructor for the Txt widget.
   const Txt(
     this.text, {
@@ -82,6 +85,7 @@ class Txt extends StatefulWidget {
     this.toRupees = false,
     this.toTimeAgo = false,
     this.strikeThrough = false,
+    this.letterSpacing,
   });
 
   @override
@@ -89,12 +93,18 @@ class Txt extends StatefulWidget {
 }
 
 class _TxtState extends State<Txt> {
-  String? get fontFamily => widget.fontFamily;
+  late String fontFamily;
 
   String finalText = '';
 
   bool get isDouble => widget.text is double;
   bool get isInt => widget.text is int;
+
+  @override
+  void initState() {
+    fontFamily = widget.fontFamily ?? 'Roboto';
+    super.initState();
+  }
 
   @override
   Widget build(final BuildContext context) {
@@ -150,8 +160,10 @@ class _TxtState extends State<Txt> {
     }
 
     ///Mac doesnt show bold fonts, so we need to see it!
-    final TextStyle style = TextStyle(
-      fontFamily: widget.fontFamily,
+    final TextStyle _style =
+        // Widgets.debugMode && kIsWeb == false?
+        TextStyle(
+      letterSpacing: widget.letterSpacing,
       decoration: widget.underline
           ? TextDecoration.underline
           : (widget.strikeThrough ? TextDecoration.lineThrough : null),
@@ -160,15 +172,24 @@ class _TxtState extends State<Txt> {
       fontWeight: widget.fontWeight,
       fontStyle: widget.style,
     );
+    // : GoogleFonts.getFont(
+    //     fontFamily,
+    //     decoration: widget.underline
+    //         ? TextDecoration.underline
+    //         : (widget.strikeThrough ? TextDecoration.lineThrough : null),
+    //     color: widget.color,
+    //     fontSize: widget.fontSize,
+    //     fontWeight: widget.fontWeight,
+    //     fontStyle: widget.style,
+    //   );
 
-    ///As we are using many packages as parent, we should only allow selectable text if enabled in configuration!
     if (widget.selectable) {
       return SelectableText(
         finalText,
         textAlign: widget.textAlign,
         maxLines: widget.maxlines,
         textScaler: TextScaler.noScaling,
-        style: style,
+        style: _style,
       );
     } else {
       return Text(
@@ -177,7 +198,7 @@ class _TxtState extends State<Txt> {
         textAlign: widget.textAlign,
         maxLines: widget.maxlines,
         textScaler: TextScaler.noScaling,
-        style: style,
+        style: _style,
       );
     }
   }
