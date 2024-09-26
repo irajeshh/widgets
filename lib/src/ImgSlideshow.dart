@@ -128,7 +128,7 @@ class _ImgSlideshowState extends State<ImgSlideshow> {
                 icon: widget.navigatorIcon ?? Icons.arrow_drop_down_circle,
                 tooltip: backward ? 'Previous' : 'Next',
                 color: widget.navigatorIconColor ?? Colors.black26,
-                size: MediaQuery.of(context).size.width < 600 ? null : 40,
+                size: mwidth(context) < 600 ? null : 40,
                 onPressed: () async {
                   await _animateFn(backward ? currentImgIndex - 1 : currentImgIndex + 1);
                 },
@@ -219,13 +219,11 @@ class _ImgSlideshowState extends State<ImgSlideshow> {
       try {
         await imgsPageController.animateToPage(
           index,
-          duration: Durations.short1,
+          duration: Durations.medium3,
           curve: Curves.ease,
         );
       } on Exception catch (e) {
-        if (kDebugMode) {
-          print('Error auto scrolling banner :$e');
-        }
+        printt('Error auto scrolling banner :$e');
       }
       if (mounted) {
         setState(() => currentImgIndex = index);
