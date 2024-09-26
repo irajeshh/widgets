@@ -1,6 +1,8 @@
 import 'package:extensions/extensions.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets.dart';
+
 /// Customized text widget with various styling options.
 class Txt extends StatefulWidget {
   /// The text to be displayed.
@@ -58,7 +60,7 @@ class Txt extends StatefulWidget {
   final bool strikeThrough;
 
   ///If the string can be selected by clicking on it
-  final bool selectable;
+  final bool? selectable;
 
   ///Space between each letters of a word
   final double? letterSpacing;
@@ -79,7 +81,7 @@ class Txt extends StatefulWidget {
     this.useFiler = false,
     this.underline = false,
     this.fullUpperCase = false,
-    this.selectable = true,
+    this.selectable,
     this.fontFamily,
     this.prefix,
     this.toRupees = false,
@@ -183,7 +185,7 @@ class _TxtState extends State<Txt> {
     //     fontStyle: widget.style,
     //   );
 
-    if (widget.selectable) {
+    if (widget.selectable ?? WidgetsConfig.selectableText) {
       return SelectableText(
         finalText,
         textAlign: widget.textAlign,

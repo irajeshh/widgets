@@ -126,7 +126,7 @@ class _ButtonState extends State<Button> {
 
   bool get isIconButton => widget.icon != null || processing == true;
 
-  Color get _buttonColor => widget.buttonColor ?? Colors.blue;
+  Color get _buttonColor => widget.buttonColor ?? WidgetsConfig.buttonColor;
   Color get _textColor => widget.textColor ?? _buttonColor.readable;
   Color get backgroundColor => processing ? _buttonColor.dark() : _buttonColor;
   Color get textColor => widget.isOutlined

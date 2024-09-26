@@ -2,6 +2,7 @@ library widgets;
 
 import 'dart:async';
 
+import 'package:extensions/extensions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart' as toast;
@@ -21,6 +22,8 @@ export './src/Inkk.dart';
 export './src/Loader.dart';
 export './src/RatingBar.dart';
 export './src/Txt.dart';
+
+part './config.dart';
 
 ///Showing a classic [Toast] to inform the [User] about
 ///the recent [actions] they [performed] or [requested]

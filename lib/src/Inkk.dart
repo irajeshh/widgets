@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:url_launcher/link.dart' as link;
 
+import '../widgets.dart';
+
 class Inkk extends StatelessWidget {
   final Widget child;
   final Color? spalshColor;
@@ -68,9 +70,9 @@ class Inkk extends StatelessWidget {
             color: Colors.transparent,
             borderRadius: _borderRadius,
             child: InkWell(
-              hoverColor: hoverColor,
-              highlightColor: (spalshColor ?? Colors.blue).withOpacity(0.35),
-              splashColor: (spalshColor ?? Colors.blue).withOpacity(0.25),
+              hoverColor: hoverColor ?? Colors.transparent,
+              highlightColor: (spalshColor ?? WidgetsConfig.primaryColor).withOpacity(0.35),
+              splashColor: (spalshColor ?? WidgetsConfig.primaryColor).withOpacity(0.25),
               onTap: onTap ??
                   () {
                     ///When onTap function is not provided,
