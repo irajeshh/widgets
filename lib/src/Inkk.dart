@@ -10,8 +10,10 @@ class Inkk extends StatelessWidget {
   final double? radius;
   final String? tooltip;
   final VoidCallback? onTap;
+  final Function? onHovered;
   final VoidCallback? onDoubleTap;
   final BorderRadius? borderRadius;
+  final Color? hoverColor;
 
   ///Link to be opened in new tab and same tab if [onTap] is not provided
   final String? url;
@@ -21,12 +23,14 @@ class Inkk extends StatelessWidget {
     super.key,
     required this.child,
     required this.onTap,
+    this.onHovered,
     this.radius,
     this.spalshColor,
     this.tooltip,
     this.onDoubleTap,
     this.borderRadius,
     this.url,
+    this.hoverColor,
   });
 
   @override
@@ -64,6 +68,7 @@ class Inkk extends StatelessWidget {
             color: Colors.transparent,
             borderRadius: _borderRadius,
             child: InkWell(
+              hoverColor: hoverColor,
               highlightColor: (spalshColor ?? Colors.blue).withOpacity(0.35),
               splashColor: (spalshColor ?? Colors.blue).withOpacity(0.25),
               onTap: onTap ??
@@ -76,6 +81,11 @@ class Inkk extends StatelessWidget {
                     }
                   },
               onDoubleTap: onDoubleTap ?? () {},
+              onHover: (final _) {
+                if (onHovered != null) {
+                  onHovered!();
+                }
+              },
             ),
           ),
         ),
