@@ -40,6 +40,7 @@ class Img extends StatefulWidget {
   final bool clearCache;
   final Color? blendColor;
   final BlendMode? blendMode;
+  final Function? onHovered;
   const Img({
     super.key,
     required this.imgUrl,
@@ -60,6 +61,7 @@ class Img extends StatefulWidget {
     this.clearCache = false,
     this.blendColor,
     this.blendMode,
+    this.onHovered,
   });
   @override
   _ImgState createState() => _ImgState();
@@ -94,49 +96,49 @@ class _ImgState extends State<Img> with AutomaticKeepAliveClientMixin, ImgViewer
   }
 
   Widget? imgWidget() {
-    return null;
-    // final Widget imgWidget = widget.imgUrl == null
-    //     ? errorWidget()
-    //     : CachedNetworkImage(
-    //         imageUrl: widget.imgUrl!,
-    //         fit: widget.fit ?? BoxFit.fill,
-    //         color: widget.blendColor,
-    //         colorBlendMode: widget.blendMode,
-    //         height: widget.height,
-    //         width: widget.width,
-    //         progressIndicatorBuilder: progressIndicatorBuilder,
-    //         errorWidget: errorLoader,
-    //       );
-    // final Widget? childWidget = widget.child == null
-    //     ? null
-    //     : Container(
-    //         color: widget.imgColor,
-    //         height: widget.height,
-    //         width: widget.width,
-    //         alignment: widget.alignment ?? Alignment.center,
-    //         child: widget.child,
-    //       );
-    // final Widget stackWidget = Stack(
-    //   clipBehavior: Clip.antiAliasWithSaveLayer,
-    //   alignment: widget.alignment ?? Alignment.center,
-    //   children: <Widget>[
-    //     imgWidget,
-    //     if (childWidget != null) childWidget,
-    //   ],
-    // );
+    final Widget imgWidget = widget.imgUrl == null
+        ? errorWidget()
+        : CachedNetworkImage(
+            imageUrl: widget.imgUrl!,
+            fit: widget.fit ?? BoxFit.fill,
+            color: widget.blendColor,
+            colorBlendMode: widget.blendMode,
+            height: widget.height,
+            width: widget.width,
+            progressIndicatorBuilder: progressIndicatorBuilder,
+            errorWidget: errorLoader,
+          );
+    final Widget? childWidget = widget.child == null
+        ? null
+        : Container(
+            color: widget.imgColor,
+            height: widget.height,
+            width: widget.width,
+            alignment: widget.alignment ?? Alignment.center,
+            child: widget.child,
+          );
+    final Widget stackWidget = Stack(
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      alignment: widget.alignment ?? Alignment.center,
+      children: <Widget>[
+        imgWidget,
+        if (childWidget != null) childWidget,
+      ],
+    );
 
-    // if (childWidget != null) {
-    //   return GestureDetector(
-    //     onTap: onTap,
-    //     child: stackWidget,
-    //   );
-    // } else {
-    //   return Inkk(
-    //     onTap: onTap,
-    //     radius: widget.radius,
-    //     child: stackWidget,
-    //   );
-    // }
+    if (childWidget != null) {
+      return GestureDetector(
+        onTap: onTap,
+        child: stackWidget,
+      );
+    } else {
+      return Inkk(
+        onHovered: widget.onHovered,
+        onTap: onTap,
+        radius: widget.radius,
+        child: stackWidget,
+      );
+    }
   }
 
   Widget progressIndicatorBuilder(
