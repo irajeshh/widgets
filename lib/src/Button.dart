@@ -9,6 +9,8 @@ import '../widgets.dart';
 
 class Button extends StatefulWidget {
   final dynamic icon;
+  final Color? iconColor;
+  final EdgeInsets? padding;
   final dynamic onTaskCompletedIcon;
   final dynamic text;
   final String? processingText;
@@ -67,11 +69,12 @@ class Button extends StatefulWidget {
     this.dropbutton = false,
     this.expandedText = false,
     this.autoFocus = false,
+    this.iconColor,
+    this.padding,
   });
 
   ///Used in [tools] of the filterview in most cases
-  factory Button.add(
-    {
+  factory Button.add({
     final bool autoFocus = false,
   }) {
     return Button(
@@ -153,7 +156,7 @@ class _ButtonState extends State<Button> {
     return Container(
       height: widget.isBig ? 65 : 52,
       width: widget.width,
-      padding: const EdgeInsets.all(8),
+      padding: widget.padding ?? const EdgeInsets.all(8),
       child: finalButton(),
     );
   }
@@ -260,25 +263,26 @@ class _ButtonState extends State<Button> {
 
   Widget iconWidget() {
     Widget? child;
-    dynamic icon = processed ? (widget.onTaskCompletedIcon ?? widget.icon) : widget.icon;
+    final Color _icnColor = widget.iconColor ?? textColor;
+    dynamic _icon = processed ? (widget.onTaskCompletedIcon ?? widget.icon) : widget.icon;
     if (widget.dropbutton) {
-      icon = Icons.keyboard_arrow_down;
+      _icon = Icons.keyboard_arrow_down;
     }
-    if (icon is IconData) {
-      child = Icon(icon, color: textColor, size: widget.iconSize ?? 20);
+    if (_icon is IconData) {
+      child = Icon(_icon, color: _icnColor, size: widget.iconSize ?? 20);
     }
     if (widget.icon is String) {
       child = Icon(
         IconsPack.icon(
           widget.dropbutton ? 'keyboard_arrow_down' : '${widget.icon}',
         ),
-        color: textColor,
+        color: _icnColor,
         size: widget.iconSize ?? 20,
       );
     }
 
-    if (icon is Widget) {
-      child = icon;
+    if (_icon is Widget) {
+      child = _icon;
     }
 
     if (processing) {
