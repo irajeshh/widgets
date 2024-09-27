@@ -100,12 +100,11 @@ class _IconbuttonState extends State<Iconbutton> {
     }
 
     if (widget.icon is String) {
-      //TODO
-      // return Icon(
-      //   IconsPack.icon('${widget.icon}'),
-      //   color: widget.color,
-      //   size: widget.size,
-      // );
+      return Icon(
+        IconsPack.icon('${widget.icon}'),
+        color: widget.color,
+        size: widget.size,
+      );
     }
     if (widget.icon is IconData) {
       return Icon(

@@ -20,6 +20,9 @@ class Inkk extends StatelessWidget {
   ///Link to be opened in new tab and same tab if [onTap] is not provided
   final String? url;
 
+  ///To allow gesture input
+  final bool allowGesture;
+
   ///Constructor
   const Inkk({
     super.key,
@@ -33,6 +36,7 @@ class Inkk extends StatelessWidget {
     this.borderRadius,
     this.url,
     this.hoverColor,
+    this.allowGesture = false,
   });
 
   @override
@@ -64,33 +68,34 @@ class Inkk extends StatelessWidget {
   Widget _stack() {
     return Stack(
       children: <Widget>[
-        child,
-        Positioned.fill(
-          child: Material(
-            color: Colors.transparent,
-            borderRadius: _borderRadius,
-            child: InkWell(
-              hoverColor: hoverColor ?? Colors.transparent,
-              highlightColor: (spalshColor ?? WidgetsConfig.primaryColor).withOpacity(0.35),
-              splashColor: (spalshColor ?? WidgetsConfig.primaryColor).withOpacity(0.25),
-              onTap: onTap ??
-                  () {
-                    ///When onTap function is not provided,
-                    ///but an url is given, then we need to open it in same page!
-                    if (url != null) {
-                      // ignore: unsafe_html
-                      html.window.open(url!, '_self');
-                    }
-                  },
-              onDoubleTap: onDoubleTap ?? () {},
-              onHover: (final _) {
-                if (onHovered != null) {
-                  onHovered!();
-                }
-              },
+        if (allowGesture) GestureDetector(child: child, onTap: onTap) else child,
+        if (allowGesture == false)
+          Positioned.fill(
+            child: Material(
+              color: Colors.transparent,
+              borderRadius: _borderRadius,
+              child: InkWell(
+                hoverColor: hoverColor ?? Colors.transparent,
+                highlightColor: (spalshColor ?? WidgetsConfig.primaryColor).withOpacity(0.35),
+                splashColor: (spalshColor ?? WidgetsConfig.primaryColor).withOpacity(0.25),
+                onTap: onTap ??
+                    () {
+                      ///When onTap function is not provided,
+                      ///but an url is given, then we need to open it in same page!
+                      if (url != null) {
+                        // ignore: unsafe_html
+                        html.window.open(url!, '_self');
+                      }
+                    },
+                onDoubleTap: onDoubleTap ?? () {},
+                onHover: (final _) {
+                  if (onHovered != null) {
+                    onHovered!();
+                  }
+                },
+              ),
             ),
           ),
-        ),
       ],
     );
   }

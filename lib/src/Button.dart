@@ -73,21 +73,6 @@ class Button extends StatefulWidget {
     this.padding,
   });
 
-  ///Used in [tools] of the filterview in most cases
-  factory Button.add({
-    final bool autoFocus = false,
-  }) {
-    return Button(
-      isVoid: true,
-      icon: Icons.add,
-      text: 'Add',
-      processingText: 'Add',
-      autoFocus: autoFocus,
-      onPressed: () {
-        // SharedWidgets.push(page, context, barrierDismissible: barrierDismissible);
-      },
-    );
-  }
 
   ///Used in [Footers] to Addd/Edit a master
   factory Button.complete({
