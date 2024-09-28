@@ -1,10 +1,11 @@
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unsafe_html
 
 import 'dart:async';
 
 // import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:universal_html/html.dart' as html;
 
 import '../widgets.dart';
 
@@ -12,17 +13,6 @@ import '../widgets.dart';
 class Img extends StatefulWidget {
   final String? imgUrl;
 
-
-
-
-
-
-
-
-
-
-
-  
   final double? height;
   final double? width;
   final Widget? loader;
@@ -136,6 +126,7 @@ class _ImgState extends State<Img> with AutomaticKeepAliveClientMixin, ImgViewer
         onHovered: widget.onHovered,
         onTap: onTap,
         radius: widget.radius,
+        url: onClicked,
         child: stackWidget,
       );
     }
@@ -175,15 +166,15 @@ class _ImgState extends State<Img> with AutomaticKeepAliveClientMixin, ImgViewer
         );
   }
 
+  ///If onClicked is given, then call it alone!
   Future<void> onTap() async {
     debugPrint(widget.imgUrl);
-    if (widget.onTap != null) {
-      //  ignore: avoid_dynamic_calls
+    if (onClicked != null) {
+      html.window.open(onClicked!, '_blank');
+    } else if (widget.onTap != null) {
       widget.onTap!();
     } else {
-      if (widget.imgUrl != null) {
-        await showImage(context, widget.imgUrl!);
-      }
+      await showImage(context, widget.imgUrl);
     }
   }
 
@@ -192,4 +183,6 @@ class _ImgState extends State<Img> with AutomaticKeepAliveClientMixin, ImgViewer
       // await CachedNetworkImage.evictFromCache(widget.imgUrl!);
     }
   }
+
+  String? get onClicked => widget.imgUrl?.split('onClicked=').lastOrNull;
 }

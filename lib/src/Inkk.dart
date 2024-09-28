@@ -68,7 +68,7 @@ class Inkk extends StatelessWidget {
   Widget _stack() {
     return Stack(
       children: <Widget>[
-        if (allowGesture) GestureDetector(child: child, onTap: onTap) else child,
+        if (allowGesture) GestureDetector(onTap: onTap, child: child) else child,
         if (allowGesture == false)
           Positioned.fill(
             child: Material(
