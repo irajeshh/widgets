@@ -11,6 +11,7 @@ import 'package:oktoast/oktoast.dart' as toast;
 
 export './src/Boxer.dart';
 export './src/Button.dart';
+export './src/Constants.dart/Constants.dart';
 export './src/Expasiontile.dart';
 export './src/Iconbutton.dart';
 export './src/IconsPack.dart';
