@@ -27,7 +27,7 @@ class Inkk extends StatelessWidget {
   const Inkk({
     super.key,
     required this.child,
-    required this.onTap,
+    this.onTap,
     this.onHovered,
     this.radius,
     this.spalshColor,
