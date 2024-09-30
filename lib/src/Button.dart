@@ -43,6 +43,11 @@ class Button extends StatefulWidget {
   ///To automatically focus this button to make just onClick even when pressing [Enter] key
   final bool autoFocus;
 
+  ///On some times, the [onPressed] function is called out of the button
+  ///For example, pressing the [Enter] key from a [TextField],
+  ///to simulate this button as pressed by hand, we can pass [simulating] as [true]
+  final bool autoExecute;
+
   ///Constructor
   const Button({
     super.key,
@@ -71,8 +76,8 @@ class Button extends StatefulWidget {
     this.autoFocus = false,
     this.iconColor,
     this.padding,
+    this.autoExecute = false,
   });
-
 
   ///Used in [Footers] to Addd/Edit a master
   factory Button.complete({
@@ -135,6 +140,14 @@ class _ButtonState extends State<Button> {
   RoundedRectangleBorder get shape => RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(widget.radius ?? 6),
       );
+
+  @override
+  void initState() {
+    if (mounted && widget.autoExecute) {
+      autoExecute();
+    }
+    super.initState();
+  }
 
   @override
   Widget build(final BuildContext context) {
@@ -323,5 +336,10 @@ class _ButtonState extends State<Button> {
         }
       }
     }
+  }
+
+  Future<void> autoExecute() async {
+    await wait();
+    await onPressed();
   }
 }
